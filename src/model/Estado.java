@@ -2,6 +2,9 @@ package model;
 
 import java.util.Vector;
 
+/**
+ * Representação de um estado do autômato
+ */
 public class Estado {
 
     public Vector<Transicao> transicoes;
