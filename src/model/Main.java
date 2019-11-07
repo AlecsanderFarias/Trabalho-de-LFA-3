@@ -44,7 +44,7 @@ public class Main {
 	    return optionn;
 
 	}
-	}
+	
 	
 	public void addEstado(String nome) {
 		
