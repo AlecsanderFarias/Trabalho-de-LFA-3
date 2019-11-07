@@ -67,24 +67,16 @@ public class Estado {
      */
     public String transitar(char simbolo, String pilha) {
 
-        /**
-         * Verificar o vetor de transições procurando por uma transição com o símbolo requisitado
-         */
+        //Verificar o vetor de transições procurando por uma transição com o símbolo requisitado
         for (int index = 0; index < transicoes.size(); index++) {
-            /**
-             * Se a transição com o símbolo requisitado for válido, Pare.
-             */
+            //Se a transição com o símbolo requisitado for válido, Pare.
             if (transicoes.elementAt(index).ehValida(simbolo, pilha.charAt(pilha.length()))) {
-                /**
-                 * Verificar se há símbolo a ser retirado na pilha. Caso houver, remover o último símbolo da pilha
-                 */
+                //Verificar se há símbolo a ser retirado na pilha. Caso houver, remover o último símbolo da pilha
                 if (transicoes.elementAt(index).simboloRemoverPilha != '@') {
                     pilha = pilha.substring(0, pilha.length() - 1);
                 }
 
-                /**
-                 * Verificar se há um símbolo a ser adicionado na pilha. Caso hover, adicionar símbolo na pilha
-                 */
+                //Verificar se há um símbolo a ser adicionado na pilha. Caso hover, adicionar símbolo na pilha
                 if (transicoes.elementAt(index).simboloAddPilha != '@') {
                     pilha = pilha + transicoes.elementAt(index).simboloAddPilha;
                 }
