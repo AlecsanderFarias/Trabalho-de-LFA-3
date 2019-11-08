@@ -1,5 +1,5 @@
 Q=8
-F={q3,q7}
+F={q7}
 alfabeto fita ={a,b,c,d}
 alfabeto pilha = {X,Y}
 (q0,@,@) = (q1,$)

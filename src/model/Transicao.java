@@ -32,9 +32,10 @@ public class Transicao {
      * @return Verdadeiro ou Falso para Transição Válida
      */
 	public boolean ehValida(char simbolo, String pilha) {
-		if(this.simbolo == simbolo) {
+		if(this.simbolo == simbolo || this.simbolo == '@') {
+			
 			if(!this.simboloRemoverPilha.equals("@") ) {
-				return this.simboloRemoverPilha == pilha.substring(pilha.length() - simboloRemoverPilha.length()) ? true : false;
+				return this.simboloRemoverPilha.equals(pilha.substring(pilha.length() - simboloRemoverPilha.length()))  ? true : false;
 			}else {
 				return true;
 			}
@@ -52,5 +53,34 @@ public class Transicao {
 	public String getEstado() {
 		return estadoResultante;
 	}
+	
+	public void imprimirTransicao() {
+		System.out.printf("simbolo: %c, add: %s, remove: %s , goTo: %s \n",
+				this.simbolo,
+				this.simboloAddPilha,
+				this.simboloRemoverPilha,
+				this.estadoResultante );	
+	}
+	
+	public String mudarPilha(String pilha) {
+		
+		//se o simboloRemoverPilha for diferente de "@"
+		//exclua a mesma quantidade de caracteres do simboloRemoverPilha do final da pilha
+		if(!simboloRemoverPilha.equals("@")) {
+			pilha = pilha.substring(0,pilha.length() - simboloRemoverPilha.length());
+		}
+		
+		//se o simboloAddPilha for diferente de "@"
+		//adicione no final da pilha o simboloAddPilha
+		if(!simboloAddPilha.equals("@")) {
+			pilha = pilha + simboloAddPilha;
+		}
+		
+		return pilha;
+		
+		
+		
+	}
+	
 	
 }

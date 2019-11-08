@@ -32,7 +32,7 @@ public class Estado {
      * @param estadoResultante Estado resultante
      */
 	public void addTransicao(char simbolo, String simboloRemoverPilha , String simboloAddPilha  , String estadoResultante ) {
-		 transicoes.add(new Transicao(simbolo,  simboloRemoverPilha , simboloAddPilha,estadoResultante));
+		transicoes.add(new Transicao(simbolo,simboloRemoverPilha,  simboloAddPilha , estadoResultante));
 	}
 	
 	/**
@@ -70,31 +70,32 @@ public class Estado {
 		
 		//verficar o vetor de transicoes procurando por uma 
 		//transicao com o simbolo requisitado
+		
 		for(int index=0;index < transicoes.size(); index++) {
+					
+			if(transicoes.elementAt(index).ehValida(simbolo,pilha) ) {
+				//transicoes.elementAt(index).imprimirTransicao();
 				
-			//se o simbolo da transicao for igual ao simbolo requisitado
-			if(transicoes.elementAt(index).simbolo == simbolo) {
+				//ESTA COM ERRO EM ALGUM LUGAR
 				
-				//verificar se eh valida a transicao  
-				if(transicoes.elementAt(index).ehValida(simbolo , pilha)) {
-					
-					//verificar se tem simbolo a ser retirado na pilha
-					//se tiver , remover o ultimo simbolo da pilha
-					if(!transicoes.elementAt(index).simboloRemoverPilha.equals("@")) {
-						pilha = pilha.substring (0, pilha.length() - transicoes.elementAt(index).simboloRemoverPilha.length());
-						
-					}
-					
-					//verificar se tem simbolo a ser adicionado na pilha
-					//se tiver , adicionar simbolo na pilha
-					if(!transicoes.elementAt(index).simboloAddPilha.equals("@")) {
-						pilha = pilha + transicoes.elementAt(index).simboloAddPilha;
-					}
-					
-					//se for valida a transicao retorna o nome do novo estado
-					return transicoes.elementAt(index).getEstado();
-				 }
+				pilha = transicoes.elementAt(index).mudarPilha(pilha);
+				
+				System.out.println("pilha = " + pilha);
+				
+				//se a transicao valida nao ter o simbolo "@" 
+				//retorne o estado + ,1 para indicar que deve avancar na leitura
+				//caso nao seja esse simbolo 
+				////retorne o estado + ,0 para indicar que nao deve avancar na leitura
+				if(transicoes.elementAt(index).simbolo == '@') {
+					return transicoes.elementAt(index).getEstado() + ",0," + pilha;
+				}else {
+					return transicoes.elementAt(index).getEstado() + ",1,"+ pilha;
+				}
+				
+				
 			}
+				
+			
 			
 			
 		}
@@ -102,6 +103,20 @@ public class Estado {
 		
 		return null;
 	}
+	
+	
+	
+	public void ImprimirTransicoes() {
+		for(int index =0; index < this.transicoes.size(); index++) {
+			System.out.printf("(%s,%c,%s) = (%s,%s) \n",
+					this.nome,			
+					this.transicoes.elementAt(index).simbolo,
+					this.transicoes.elementAt(index).simboloRemoverPilha,
+					this.transicoes.elementAt(index).getEstado(),
+					this.transicoes.elementAt(index).simboloAddPilha);
+		}
+	}
+}
 
 
 

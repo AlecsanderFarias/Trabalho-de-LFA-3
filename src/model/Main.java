@@ -12,24 +12,30 @@ public class Main {
 	public static void main(String args[]) {
 		
 
-		Automato teste = new Automato();
+		Automato aut = new Automato();
 
 	    Scanner entrada = new Scanner(System.in);
 
 	    int optionn = 0;
-	    while (optionn != 3)
+	    while (optionn != 4)
 	    {
 	       optionn = mostraMenu();
 	       switch (optionn) {
 	            case 1:
+	            	System.out.println("Escreva a palavra a ser processada.");
 	            	String palavra = entrada.nextLine();
-	                System.out.println(palavra);
-	                System.out.println("Processa palavra");
+	                aut.processarPalavra(palavra);
 	                break;
 	            case 2:
-	            	System.out.println("Le arquivo");
+	            	limpartTerminal();
+	            	aut.lerAutomoto();
 	                break;
+	                
 	            case 3:
+	            	limpartTerminal();
+	            	aut.ImprimirAutomoto();;
+	            	break;
+	            case 4:
 	            	System.exit(0);
 	            default:
 	                System.out.println("Entrada invalida");
@@ -42,10 +48,11 @@ public class Main {
 
 	    int optionn = 0;
 	    Scanner keyboard = new Scanner(System.in);
-	    System.out.println("--------------");
+	    System.out.println("\n--------------");
 	    System.out.println("1.Processar palavra");
 	    System.out.println("2.Ler arquivo TXT");
-	    System.out.println("3.Sair");
+	    System.out.println("3.Imprimir Automato");
+	    System.out.println("4.Sair");
 	    System.out.println("--------------");
 	    System.out.println("Opcao:");
 	    optionn = keyboard.nextInt();
@@ -55,43 +62,13 @@ public class Main {
 	}
 	
 
+	public static void limpartTerminal() {
+		for (int i = 0; i < 50; ++i) System.out.println();
+	}
+
+	
 	
 		
-		Scanner ler = new Scanner(System.in);
-		
-		
-		try {
-			FileReader arq = new FileReader("input.txt");
-		    BufferedReader lerArq = new BufferedReader(arq);
-		 
-		 
-		    //pegar a primeira linha 
-		    //dividir entre duas string antes e depois do "="
-		    //tranformar o segundo valor em inteiro que seria a quantidade de estados
-		      String linha = lerArq.readLine(); 
-		      String[] palavras = linha.split("=");
-		      int qtd = Integer.parseInt(palavras[1]);
-		    
-		      for(int i=0 ; i < qtd ; i++) {
-		    	  teste.addEstado("q" + Integer.toString(i));
-		    	  
-		     }
-		      
-		    
-	    	  
-		      
-		      
-		      teste.ImprimirAutomoto();
-		 
-		      arq.close();
-		}catch (IOException e) {
-	        System.err.printf("Erro na abertura do arquivo: input.txt\n",
-	                e.getMessage());
-	       }
-		
-		
-		
-	}
 	
 	
 }
