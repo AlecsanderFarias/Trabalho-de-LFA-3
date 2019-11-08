@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Transições entre autômatos
+ */
 public class Transicao {
 
 	public char simbolo;
@@ -8,7 +11,12 @@ public class Transicao {
 	public String estadoResultante;
 	
 	
-	//inicializador da classe
+	  /**
+     * Construtor da classe
+     *
+     * @param simbolo          Símbolo da transição
+     * @param estadoResultante Estado para aonde irá transitar
+     */
 	public Transicao(char simbolo, String simboloRemoverPilha , String simboloAddPilha  , String estadoResultante ) {
 		this.simbolo = simbolo;
 		this.simboloRemoverPilha = simboloRemoverPilha;
@@ -16,9 +24,13 @@ public class Transicao {
 		this.estadoResultante = estadoResultante;
 	}
 	
-	//Parametros : simbolo a ser processado e ultimo simbolo da pilha.
-	//Funcao : verificar se eh possivel fazer a transicao atual.
-	//Resposta : true ou false para transicao valida.
+	/**
+     * Verificar se é possível fazer a transição atual
+     *
+     * @param simbolo    Símbolo a ser processado
+     * @param pilha        Último símbolo da pilha
+     * @return Verdadeiro ou Falso para Transição Válida
+     */
 	public boolean ehValida(char simbolo, String pilha) {
 		if(this.simbolo == simbolo) {
 			if(!this.simboloRemoverPilha.equals("@") ) {
@@ -32,9 +44,11 @@ public class Transicao {
 		return false;
 	}
 	
-	//Parametros : .
-	//Funcao : devolver o nome do estado resultante.
-	//Resposta : nome do estado resultante.
+	 /**
+     * Retorna o nome do estado resultante
+     *
+     * @return Nome do estado resultante
+     */
 	public String getEstado() {
 		return estadoResultante;
 	}

@@ -2,6 +2,9 @@ package model;
 
 import java.util.Vector;
 
+/**
+ * Representação de um estado do autômato
+ */
 public class Estado {
 
 	public Vector<Transicao> transicoes;
@@ -9,7 +12,11 @@ public class Estado {
 	public boolean Inicial;
 	public boolean Final;
 	
-	//inicializador da classe
+	 /**
+     * Construtor da Classe
+     *
+     * @param nome Nome do estado
+     */
 	public Estado(String nome) {
 		
 		this.nome = nome;
@@ -18,39 +25,47 @@ public class Estado {
 		this.Final = false;
 	}
 	
-	//Parametros : simbolo da transicao , simbolo que remove da pilha , simbolo que adiciona na pilha e nome do estado resultante.
-	//Funcao : adiciona uma transicao com o simbolo e o estado resultante.
-	//Resposta : .
+	 /**
+     * Adiciona uma transição com o símbolo e o estado resultante
+     *
+     * @param simbolo          Símbolo da transição
+     * @param estadoResultante Estado resultante
+     */
 	public void addTransicao(char simbolo, String simboloRemoverPilha , String simboloAddPilha  , String estadoResultante ) {
 		 transicoes.add(new Transicao(simbolo,  simboloRemoverPilha , simboloAddPilha,estadoResultante));
 	}
 	
-	//Parametros : .
-	//Funcao : marca o estado como inicial.
-	//Resposta : .
+	/**
+     * Marca o estado como inicial
+     */
 	public void setInicial() {
 		this.Inicial = true;
 	}
 	
-	//Parametros : .
-	//Funcao : marca o estado como final.
-	//Resposta : .
+	/**
+     * Marca o estado como final
+     */
 	public void setFinal() {
 		this.Final = true;
 	}
 	
-	//Parametros : .
-	//Funcao : retorna se o estado e um estado final ou nao.
-	//Resposta : true ou false para ser estado final,
+	 /**
+     * Retorna se o estado é um estado final ou não
+     *
+     * @return Verdadeiro ou Falso para Estado Final
+     */
 	public boolean getFinal() {
 		return this.Final;
 	}
 	
-	//Parametros : simbolo a ser processado pelo estado e a pilha do automoto.
-	//Funcao : processa o simbolo para dizer se eh valido ou nao.
-	//Resposta : se for valido retorna o nome do estado para qual deve transitar,
-	//se for invalido ele retorna null.
-	//Observacao : essa funcao ja trata a pilha (adiciona e retira da pilha quando preciso).
+	/**
+     * Processa o símbolo para dizer se é válido ou não
+     * Obs.: Essa função já trata a pilha (adiciona e retira quando necessário)
+     *
+     * @param simbolo Símbolo a ser processado pelo estado
+     * @param pilha   Pilha do Autômato
+     * @return Se for válido retorna o nome do estado para qual irá transitar, se for inválido retornará "null"
+     */
 	public String transitar(char simbolo , String pilha) {
 		
 		//verficar o vetor de transicoes procurando por uma 
@@ -88,7 +103,6 @@ public class Estado {
 		return null;
 	}
 
-}
 
 
 
