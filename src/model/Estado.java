@@ -11,17 +11,18 @@ public class Estado {
 	
 	//inicializador da classe
 	public Estado(String nome) {
+		
 		this.nome = nome;
-		this.transicoes = null;
+		this.transicoes = new Vector<Transicao>();
 		this.Inicial = false;
 		this.Final = false;
 	}
 	
-	//Parametros : simbolo da transicao estado resultante da mesma.
+	//Parametros : simbolo da transicao , simbolo que remove da pilha , simbolo que adiciona na pilha e nome do estado resultante.
 	//Funcao : adiciona uma transicao com o simbolo e o estado resultante.
 	//Resposta : .
-	public void addTransicao(char simbolo , String estadoResultante ) {
-		 transicoes.add(new Transicao(simbolo ,estadoResultante));
+	public void addTransicao(char simbolo, String simboloRemoverPilha , String simboloAddPilha  , String estadoResultante ) {
+		 transicoes.add(new Transicao(simbolo,  simboloRemoverPilha , simboloAddPilha,estadoResultante));
 	}
 	
 	//Parametros : .
@@ -56,24 +57,31 @@ public class Estado {
 		//transicao com o simbolo requisitado
 		for(int index=0;index < transicoes.size(); index++) {
 				
-			//se a transicao com o simbolo requisitado for valido pare
-			if(transicoes.elementAt(index).ehValida(simbolo , pilha.charAt(pilha.length()))) {
+			//se o simbolo da transicao for igual ao simbolo requisitado
+			if(transicoes.elementAt(index).simbolo == simbolo) {
 				
-				//verificar se tem simbolo a ser retirado na pilha
-				//se tiver , remover o ultimo simbolo da pilha
-				if(transicoes.elementAt(index).simboloRemoverPilha != '@') {
-					pilha = pilha.substring (0, pilha.length() - 1);
+				//verificar se eh valida a transicao  
+				if(transicoes.elementAt(index).ehValida(simbolo , pilha)) {
 					
-				}
-				
-				//verificar se tem simbolo a ser adicionado na pilha
-				//se tiver , adicionar simbolo na pilha
-				if(transicoes.elementAt(index).simboloAddPilha != '@') {
-					pilha = pilha + transicoes.elementAt(index).simboloAddPilha;
-				}
-				
-				return transicoes.elementAt(index).getEstado();
-			 }
+					//verificar se tem simbolo a ser retirado na pilha
+					//se tiver , remover o ultimo simbolo da pilha
+					if(!transicoes.elementAt(index).simboloRemoverPilha.equals("@")) {
+						pilha = pilha.substring (0, pilha.length() - transicoes.elementAt(index).simboloRemoverPilha.length());
+						
+					}
+					
+					//verificar se tem simbolo a ser adicionado na pilha
+					//se tiver , adicionar simbolo na pilha
+					if(!transicoes.elementAt(index).simboloAddPilha.equals("@")) {
+						pilha = pilha + transicoes.elementAt(index).simboloAddPilha;
+					}
+					
+					//se for valida a transicao retorna o nome do novo estado
+					return transicoes.elementAt(index).getEstado();
+				 }
+			}
+			
+			
 		}
 		
 		
