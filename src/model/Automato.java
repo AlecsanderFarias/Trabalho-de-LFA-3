@@ -97,40 +97,67 @@ public class Automato {
 			 this.mudarEstadoAtual("q0");
 				String estado = "";
 				String[] reponses ;
+				this.pilha = "";
 				
 				System.out.println("\n");
 				
-				for(int index = 0; index < palavra.length();index++) {
+				int index = 0;
+				
+				for(; index < palavra.length() + 1;index++) {
 					
-					
-					
-					estado = estadoAtual.transitar(palavra.charAt(index), pilha);
+									
+						
+					estado = estadoAtual.transitar((index < palavra.length() ? palavra.charAt(index) : ' '), pilha);
 					
 					if (estado == null) {
+						
+						
+						
 						break;
+						
 					}else {
+						
+						
 						reponses = estado.split(",");
 						
-						if(reponses[1] == "1") {
+						if(reponses[1].equals("0")) {
 							index--;
 						}
 						
+						System.out.printf("fita: %s[%s]%s     pilha: %s\n",
+								palavra.subSequence(0 , (index < 0 ? 0: index)) ,
+								estadoAtual.nome , 
+								palavra.subSequence((index < 0 ? 0: index ) , palavra.length()) ,
+								this.pilhaInversa(pilha));
+					
+						
 						this.pilha = reponses[2];
 						
-						System.out.printf("fita: %s[%s]%s     pilha: %s\n",
-								palavra.subSequence(0, index) ,
-								estadoAtual.nome , 
-								palavra.subSequence(index, palavra.length()-index) ,
-								pilha);
 						
 						mudarEstadoAtual(reponses[0]);
+						
 					}
 					
 				}
 				
+				
+				
+				
+				
 				if(estado == null || !estadoAtual.getFinal()) {
-					System.out.println("REJEITA");
+					System.out.printf("fita: %s[%s]%s     pilha: %s\n",
+							palavra.subSequence(0 , (index < 0 ? 0: index)) ,
+							estadoAtual.nome , 
+							palavra.subSequence((index < 0 ? 0: index ) , palavra.length()) ,
+							this.pilhaInversa(pilha));
+					
+					System.out.println("REJEITADA");
 				}else {
+					System.out.printf("fita: %s[%s]    pilha: %s\n",
+							palavra,
+							estadoAtual.nome ,
+							this.pilhaInversa(pilha));
+					
 					System.out.println("ACEITA");
 				} 
 		}else {
@@ -243,7 +270,14 @@ public class Automato {
 		
 	}
 	
-	
+	public String pilhaInversa(String pilha) {
+		String pilhaInversa = "";	
+		for(int index =0 ; index < pilha.length() ; index++) {
+			pilhaInversa += pilha.charAt(index);
+		}
+		
+		return pilhaInversa;
+	}
 	
 }
 

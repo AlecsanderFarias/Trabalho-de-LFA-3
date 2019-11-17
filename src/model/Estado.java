@@ -73,23 +73,26 @@ public class Estado {
 		
 		for(int index=0;index < transicoes.size(); index++) {
 					
+		
 			if(transicoes.elementAt(index).ehValida(simbolo,pilha) ) {
 				//transicoes.elementAt(index).imprimirTransicao();
 				
 				//ESTA COM ERRO EM ALGUM LUGAR
 				
+				
+				
 				pilha = transicoes.elementAt(index).mudarPilha(pilha);
 				
-				System.out.println("pilha = " + pilha);
+				//System.out.println("pilha = " + pilha);
 				
 				//se a transicao valida nao ter o simbolo "@" 
 				//retorne o estado + ,1 para indicar que deve avancar na leitura
 				//caso nao seja esse simbolo 
 				////retorne o estado + ,0 para indicar que nao deve avancar na leitura
-				if(transicoes.elementAt(index).simbolo == '@') {
-					return transicoes.elementAt(index).getEstado() + ",0," + pilha;
+				if(transicoes.elementAt(index).simbolo == '@' && !transicoes.elementAt(index).simboloRemoverPilha.equals("$")) {
+					return transicoes.elementAt(index).getEstado() + ",0," + (pilha.length() > 0 ? pilha : " ");
 				}else {
-					return transicoes.elementAt(index).getEstado() + ",1,"+ pilha;
+					return transicoes.elementAt(index).getEstado() + ",1,"+ (pilha.length() > 0 ? pilha : " ");
 				}
 				
 				
@@ -100,13 +103,13 @@ public class Estado {
 			
 		}
 		
-		
 		return null;
 	}
 	
 	
 	
 	public void ImprimirTransicoes() {
+	
 		for(int index =0; index < this.transicoes.size(); index++) {
 			System.out.printf("(%s,%c,%s) = (%s,%s) \n",
 					this.nome,			

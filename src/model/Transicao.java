@@ -32,8 +32,8 @@ public class Transicao {
      * @return Verdadeiro ou Falso para Transição Válida
      */
 	public boolean ehValida(char simbolo, String pilha) {
+		
 		if(this.simbolo == simbolo || this.simbolo == '@') {
-			
 			if(!this.simboloRemoverPilha.equals("@") ) {
 				return this.simboloRemoverPilha.equals(pilha.substring(pilha.length() - simboloRemoverPilha.length()))  ? true : false;
 			}else {
